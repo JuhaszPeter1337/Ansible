@@ -3,7 +3,7 @@
   hosts: localhost
 
   vars:
-   file: "/home/juhasz/Documents/Ansible/test.txt"
+   file: "test.txt"
 
   tasks:
     - name: Check if line exists if not then insert in before a specific line
