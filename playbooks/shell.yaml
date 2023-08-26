@@ -1,0 +1,17 @@
+---
+- name: Install jq, using shell, register the output and print it to console
+  hosts: linux
+  tasks:
+    - name: Installing jq
+      become: true
+      apt:
+        name: jq
+        state: latest
+
+    - name: Using shell
+      shell: cat /home/ejuhpet/test.json | jq .cars[0]
+      register: command_output
+
+    - name: Printing the output (only the stdout_lines section)
+      debug:
+        var: command_output.stdout_lines
