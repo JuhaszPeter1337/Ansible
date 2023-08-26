@@ -1,0 +1,17 @@
+---
+- name: Stat
+  hosts: localhost
+
+  vars:
+   file: "test.txt"
+
+  tasks:
+    - name: Check stat of the file
+      stat:
+        path: "{{ file }}"
+      register: file_stat_output
+
+    - name: Print the value
+      debug:
+        msg: "{{ file_stat_output }}"
+
