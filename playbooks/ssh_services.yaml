@@ -1,0 +1,36 @@
+---
+- name: SSH
+  hosts: localhost
+
+  vars:
+    ssh_services_names:
+      - name: "ssh"
+        file: "/etc/ssh/sshd_config"
+        do_configuration: yes
+      
+  tasks:
+    - name: "Check which SSH service is used"
+      shell: >
+          sudo service {{ item.name | quote }} status
+      ignore_errors: true
+      changed_when: false
+      register: ssh_services
+      loop: "{{ ssh_services_names }}"
+
+    - name: Print
+      debug:
+        msg: "{{ item }}"
+      loop: "{{ ssh_services.results }}"
+ 
+    - name: Looping over the var
+      debug:
+        msg: "{{ ssh_present_services|default([]) +
+                [ 
+                  {
+                    'name': item.item.name,
+                    'file': item.item.file,
+                    'do_configuration': item.item.do_configuration
+                  }
+                ]
+              }}"
+      loop: "{{ ssh_services.results }}"
