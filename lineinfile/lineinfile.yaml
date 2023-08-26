@@ -1,0 +1,14 @@
+---
+- name: Stat
+  hosts: localhost
+
+  vars:
+   file: "/home/juhasz/Documents/Ansible/test.txt"
+
+  tasks:
+    - name: Check if line exists if not then insert in before a specific line
+      lineinfile:
+        path: "{{ file }}"
+        line: "Apple yes"
+        insertbefore: 'Banana no'
+
