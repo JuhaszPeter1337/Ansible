@@ -35,7 +35,7 @@
         msg: "our fruit is {{ fruit }}"
       when: extra is defined and fruit == "apple"
 
-    - name: fail
+    - name: defined and not apple
       fail:
         msg: "The fruit is not apple, it is {{ fruit }}"
       when: extra is defined and fruit != "apple"
