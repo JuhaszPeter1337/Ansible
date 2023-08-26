@@ -1,0 +1,41 @@
+# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=true
+# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=yes
+# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=1
+# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=false
+---
+- name: Debug and fail modul demo
+  hosts: linux
+  gather_facts: no
+  ignore_errors: true
+  vars:
+    fruit: "banana"
+  tasks:
+    - name: defined and true
+      debug:
+        msg: "our fruit is {{ fruit }}"
+      when: extra is defined and extra|bool
+
+    - name: defined and true
+      debug:
+        msg: "our fruit is {{ fruit }}"
+      when: extra is defined and extra | bool == True
+
+    - name: defined and not true
+      fail:
+        msg: "Extra is defined and not true"
+      when: extra is defined and not extra|bool
+
+    - name: defined && not empty
+      debug:
+        msg: "our fruit is {{ fruit }}"
+      when: extra is defined and fruit|length > 0
+
+    - name: defined and apple
+      debug:
+        msg: "our fruit is {{ fruit }}"
+      when: extra is defined and fruit == "apple"
+
+    - name: fail
+      fail:
+        msg: "The fruit is not apple, it is {{ fruit }}"
+      when: extra is defined and fruit != "apple"
