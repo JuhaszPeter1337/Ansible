@@ -1,7 +1,7 @@
-# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=true
-# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=yes
-# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=1
-# ansible-playbook -i ../Hosts/ansible-server printing.yaml -e extra=false
+# ansible-playbook -i ../Hosts/hosts debug_and_fail.yaml -e extra=true
+# ansible-playbook -i ../Hosts/hosts debug_and_fail.yaml -e extra=yes
+# ansible-playbook -i ../Hosts/hosts debug_and_fail.yaml -e extra=1
+# ansible-playbook -i ../Hosts/hosts debug_and_fail.yaml -e extra=false
 ---
 - name: Debug and fail modul demo
   hosts: linux
