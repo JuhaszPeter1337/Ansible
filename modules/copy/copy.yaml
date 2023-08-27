@@ -1,0 +1,15 @@
+---
+- name: Stat
+  hosts: localhost
+
+  vars:
+   file: "test.txt"
+
+  tasks:
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: test.txt
+        dest: test1.txt
+        owner: juhasz
+        group: juhasz
+        mode: '0664'
