@@ -1,0 +1,16 @@
+---
+- name: Set_fact
+  hosts: localhost
+
+  vars:
+    fruit: "apple"
+    number: 5
+
+  tasks:
+    - name: Create list
+      set_fact:
+        new_list: "{{ new_list | default([]) + [{ 'fruit': fruit, 'number': number }] }}"
+
+    - name: Print list
+      debug:
+        msg: "{{ new_list  }}"
