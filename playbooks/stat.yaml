@@ -1,0 +1,26 @@
+---
+- name: Stat
+  hosts: localhost
+
+  vars:
+   logs: 
+     - "/var/log/apt/history.log"
+     - "/var/log/landscape/sysinfo.log"
+
+  tasks:
+    - name: Check stat of the file
+      stat:
+        path: "{{ item }}"
+      register: file_stat_output
+      loop: "{{ logs }}"
+
+    - name: Gather the items
+      set_fact:
+        item_list: "{{ item_list | default([]) + [ item.stat.path] }}"
+      when: "{{ item.stat.exists }}"
+      loop: "{{ file_stat_output.results }}"
+
+    - name: Print the list
+      debug:
+        msg: "{{ item_list }}"
+
